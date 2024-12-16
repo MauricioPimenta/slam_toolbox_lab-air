@@ -10,7 +10,7 @@ ceres_loss_function: HuberLoss
 odom_frame: odom
 map_frame: map
 base_frame: base_link
-scan_topic: /360/scan
+scan_topic: /360/scan_fixed
 mode: mapping #localization
 
 # if you'd like to immediately start continuing a map at a given pose
