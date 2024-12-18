@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/mauricio-ros/Documents/SLAM_research/ros_workspace/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/mauricio-ros/Documents/LIMO_RESEARCH/myROSworkspaces/src/localization_aruco/include/**",
+        "/home/mauricio-ros/Documents/SLAM_research/ros_workspace/src/slam_toolbox_lab-air/slam_toolbox/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
