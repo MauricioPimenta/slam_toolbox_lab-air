@@ -4,13 +4,13 @@ ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
 ceres_preconditioner: SCHUR_JACOBI
 ceres_trust_strategy: LEVENBERG_MARQUARDT
 ceres_dogleg_type: TRADITIONAL_DOGLEG
-ceres_loss_function: None
+ceres_loss_function: HuberLoss
 
 # ROS Parameters
 odom_frame: odom
 map_frame: map
-base_frame: base_footprint
-scan_topic: /scan
+base_frame: base_link
+scan_topic: /L1/scan
 mode: mapping #localization
 
 # if you'd like to start localizing on bringup in a map and pose
