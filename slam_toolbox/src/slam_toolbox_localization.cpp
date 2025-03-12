@@ -29,6 +29,7 @@ LocalizationSlamToolbox::LocalizationSlamToolbox(ros::NodeHandle& nh)
   processor_type_ = PROCESS_LOCALIZATION;
   localization_pose_sub_ = nh.subscribe("/initialpose", 1,
     &LocalizationSlamToolbox::localizePoseCallback, this);
+
   clear_localization_ = nh.advertiseService(
     "clear_localization_buffer",
     &LocalizationSlamToolbox::clearLocalizationBuffer, this);
@@ -149,6 +150,11 @@ LocalizedRangeScan* LocalizationSlamToolbox::addScan(
   // Add the localized range scan to the smapper
   boost::mutex::scoped_lock lock(smapper_mutex_);
   bool processed = false, update_reprocessing_transform = false;
+
+  // initialize the covariance matrix
+  karto::Matrix3 covariance;
+  covariance.SetToIdentity();
+
   if (processor_type_ == PROCESS_NEAR_REGION)
   {
     if (!process_near_pose_)
@@ -162,7 +168,7 @@ LocalizedRangeScan* LocalizationSlamToolbox::addScan(
     range_scan->SetOdometricPose(*process_near_pose_);
     range_scan->SetCorrectedPose(range_scan->GetOdometricPose());
     process_near_pose_.reset(nullptr);
-    processed = smapper_->getMapper()->ProcessAgainstNodesNearBy(range_scan, true);
+    processed = smapper_->getMapper()->ProcessAgainstNodesNearBy(range_scan, true, &covariance);
 
     // reset to localization mode
     processor_type_ = PROCESS_LOCALIZATION;
@@ -170,7 +176,7 @@ LocalizedRangeScan* LocalizationSlamToolbox::addScan(
   }
   else if (processor_type_ == PROCESS_LOCALIZATION)
   {
-    processed = smapper_->getMapper()->ProcessLocalization(range_scan);
+    processed = smapper_->getMapper()->ProcessLocalization(range_scan, &covariance);
     update_reprocessing_transform = false;
   }
   else
@@ -189,6 +195,9 @@ LocalizedRangeScan* LocalizationSlamToolbox::addScan(
     // compute our new transform
     setTransformFromPoses(range_scan->GetCorrectedPose(), karto_pose,
       scan->header.stamp, update_reprocessing_transform);
+
+    // Publish the pose
+    publishPose(range_scan->GetCorrectedPose(), covariance, scan->header.stamp);
   }
 
   return range_scan;

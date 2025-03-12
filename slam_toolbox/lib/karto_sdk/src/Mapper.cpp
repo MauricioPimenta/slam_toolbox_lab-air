@@ -2919,7 +2919,7 @@ namespace karto
         pScan->GetOdometricPose()));
     }
 
-    // test if scan is outside minimum boundary 
+    // test if scan is outside minimum boundary
     // or if heading is larger then minimum heading
     if (!HasMovedEnough(pScan, pLastScan))
     {
