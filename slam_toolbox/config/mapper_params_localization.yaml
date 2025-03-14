@@ -10,11 +10,11 @@ ceres_loss_function: HuberLoss
 odom_frame: odom
 map_frame: map
 base_frame: base_link
-scan_topic: /L1/scan
+scan_topic: /L1/scan_consistent
 mode: localization  #mapping
 
 # if you'd like to start localizing on bringup in a map and pose
-map_file_name: 2025.03.09_mapa_labair_HOUSE
+map_file_name: 2025.03.09_mapa_labair
 map_start_pose: [0.0, 0.0, 0.0]
 
 debug_logging: false
@@ -22,8 +22,8 @@ throttle_scans: 1
 transform_publish_period: 0.02 #if 0 never publishes odometry
 map_update_interval: 5.0
 resolution: 0.1
-max_laser_range: 16.0 #for rastering images
-minimum_time_interval: 0.5
+max_laser_range: 8.0 #for rastering images
+minimum_time_interval: 0.005
 transform_timeout: 0.2
 tf_buffer_duration: 30.
 stack_size_to_use: 40000000 #// program needs a larger stack size to serialize large maps
@@ -31,8 +31,8 @@ stack_size_to_use: 40000000 #// program needs a larger stack size to serialize l
 # General Parameters
 use_scan_matching: true
 use_scan_barycenter: true
-minimum_travel_distance: 0.2
-minimum_travel_heading: 0.2
+minimum_travel_distance: 0.005
+minimum_travel_heading: 0.005
 scan_buffer_size: 3
 scan_buffer_maximum_scan_distance: 10
 link_match_minimum_response_fine: 0.1

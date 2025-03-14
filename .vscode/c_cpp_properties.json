@@ -6,9 +6,9 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/usr/include/**",
         "/opt/ros/noetic/include/**",
         "${workspaceFolder}/slam_toolbox/include/**",
+        "${workspaceFolder}/../../devel/include/**",
         "${workspaceFolder}/slam_toolbox/lib/karto_sdk/include/**"
       ],
       "name": "ROS",
